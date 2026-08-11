@@ -249,12 +249,15 @@ body {
    📱 تحسينات الموبايل (Responsive Design)
    ========================================= */
 
+/* =========================================
+   📱 تحسينات الموبايل (Responsive Design)
+   ========================================= */
+
 @media (max-width: 991px) {
-    /* ---------------- Navbar ---------------- */
+    /* ---------------- Navbar (شريط التنقل) ---------------- */
     .navbar {
-        flex-wrap: wrap;
         padding: 1rem 5%;
-        justify-content: space-between;
+        flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد */
     }
     
     .logo {
@@ -262,20 +265,20 @@ body {
         font-size: 1.2rem;
     }
     
-    /* إلغاء المسافات الكبيرة لزر السلة في الموبايل */
-    .mx-5 {
+    /* إجبار زر السلة على إلغاء الهوامش الكبيرة الخاصة بـ Bootstrap */
+    .navbar > div.mx-5 {
         margin: 0 !important; 
     }
     
-    /* جعل الروابط تنزل أسفل اللوجو وزر السلة وتتوسط الشاشة */
+    /* ترتيب الروابط لتنزل تحت اللوجو والسلة */
     .nav-links {
         order: 3; 
         width: 100%;
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
+        flex-wrap: wrap; /* عشان لو الشاشة صغيرة جداً الروابط متخرجش برا الشاشة */
         gap: 15px;
-        margin-top: 15px;
+        margin-top: 1rem;
     }
     
     .nav-links a {
@@ -283,63 +286,58 @@ body {
         font-size: 0.85rem;
     }
 
-    /* ---------------- Hero Section ---------------- */
+    /* ---------------- Hero Section (القسم الرئيسي) ---------------- */
     .hero-section {
-        flex-direction: column; /* عرض العناصر تحت بعضها */
-        padding: 2rem 5%;
-        text-align: center; /* توسيط النص */
+        flex-direction: column;
+        padding: 2rem 5% 0; /* تظبيط الهوامش الجانبية */
+        min-height: auto;
     }
     
     .hero-content {
         padding-right: 0;
         padding-bottom: 2rem;
+        text-align: center;
         align-items: center;
     }
     
     .main-title {
-        font-size: 3.2rem; /* تصغير حجم العنوان الرئيسي */
-    }
-    
-    .subtitle {
-        font-size: 0.95rem;
+        font-size: 2.8rem; /* تصغير العنوان ليتناسب مع الموبايل */
+        line-height: 1.2;
     }
     
     .cta-buttons {
         justify-content: center;
-        flex-direction: column; /* الأزرار تحت بعض */
-        gap: 1.5rem;
         width: 100%;
-    }
-    
-    .btn-primary {
-        width: 100%;
-        max-width: 250px; /* زر Discover Collection يأخذ عرض الشاشة */
     }
     
     .features {
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+        flex-wrap: wrap; /* عشان المميزات تترص صح وماتتدخلش في بعض */
+        margin-bottom: 2rem;
     }
 
-    /* ---------------- Hero Image ---------------- */
+    /* ---------------- Hero Image (إظهار الصورة وتثبيت الكارت) ---------------- */
     .hero-image-container {
         width: 100%;
-        min-height: 450px; /* إعطاء مساحة ثابتة للصورة */
-        margin-top: 2rem;
+        height: 500px; /* إعطاء طول ثابت إجباري للحاوية لإظهار الصورة */
+        position: relative;
+        margin-top: 1rem;
+        display: block;
     }
     
     .arch-box {
-        /* تغيير شكل القوس ليكون مناسباً للموبايل (قوس من الأعلى فقط) */
-        border-radius: 200px 200px 0 0; 
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 250px 250px 0 0; /* شكل القوس من فوق بس */
     }
     
     .promo-card {
-        bottom: -20px; /* إخراج الكارت قليلاً من الصورة */
+        bottom: 20px; /* رفع الكارت ليكون داخل الصورة */
         right: 50%;
-        transform: translateX(50%); /* توسيط الكارت في منتصف الشاشة */
+        transform: translateX(50%); /* توسيط الكارت أفقياً بالمللي */
         width: 90%;
-        max-width: 350px;
+        max-width: 320px;
         justify-content: center;
     }
 }
