@@ -245,3 +245,101 @@ body {
     color: var(--text-dark);
     text-decoration: none;
 }
+/* =========================================
+   📱 تحسينات الموبايل (Responsive Design)
+   ========================================= */
+
+@media (max-width: 991px) {
+    /* ---------------- Navbar ---------------- */
+    .navbar {
+        flex-wrap: wrap;
+        padding: 1rem 5%;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
+    
+    /* إلغاء المسافات الكبيرة لزر السلة في الموبايل */
+    .mx-5 {
+        margin: 0 !important; 
+    }
+    
+    /* جعل الروابط تنزل أسفل اللوجو وزر السلة وتتوسط الشاشة */
+    .nav-links {
+        order: 3; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    /* ---------------- Hero Section ---------------- */
+    .hero-section {
+        flex-direction: column; /* عرض العناصر تحت بعضها */
+        padding: 2rem 5%;
+        text-align: center; /* توسيط النص */
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        padding-bottom: 2rem;
+        align-items: center;
+    }
+    
+    .main-title {
+        font-size: 3.2rem; /* تصغير حجم العنوان الرئيسي */
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .cta-buttons {
+        justify-content: center;
+        flex-direction: column; /* الأزرار تحت بعض */
+        gap: 1.5rem;
+        width: 100%;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        max-width: 250px; /* زر Discover Collection يأخذ عرض الشاشة */
+    }
+    
+    .features {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    /* ---------------- Hero Image ---------------- */
+    .hero-image-container {
+        width: 100%;
+        min-height: 450px; /* إعطاء مساحة ثابتة للصورة */
+        margin-top: 2rem;
+    }
+    
+    .arch-box {
+        /* تغيير شكل القوس ليكون مناسباً للموبايل (قوس من الأعلى فقط) */
+        border-radius: 200px 200px 0 0; 
+    }
+    
+    .promo-card {
+        bottom: -20px; /* إخراج الكارت قليلاً من الصورة */
+        right: 50%;
+        transform: translateX(50%); /* توسيط الكارت في منتصف الشاشة */
+        width: 90%;
+        max-width: 350px;
+        justify-content: center;
+    }
+}
