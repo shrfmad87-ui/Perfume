@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Parfums</title>
+    <!-- Google Font  -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>   
+    
+    <!-- Vue.js  -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- animation on scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+<div id="app" class="d-flex flex-column min-vh-100">
+   
+    <!-- NavBar -->
+    <header class="navbar sticky-top">
+        <div class="logo">LUMIÈRE <span>PARFUMS</span></div>
+        <nav class="nav-links">
+            <a href="#" @click.prevent="goHome">Home</a>
+            <a href="#colction">Collections</a>
+            <a href="#about">About</a>
+            <a href="#ingredients">Ingredients</a>
+            <a href="#journal">Journal</a>
+        </nav>
+        <div class="mx-5">
+            <button id="cart1" @click="goCart" class="btn btn-primary position-relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{CartItemsCounter}}
+                    <span class="visually-hidden">Cart Items</span>
+                    </span>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Home  -->
+    <div id="home" v-show="cart==false">
+    
+        <!-- Hero Section -->
+    <main class="hero-section">
+        
+        <!-- Left -->
+        <div class="hero-content">
+            <div class="badge">✦ NEW COLLECTION</div>
+            <h1 class="main-title">
+                Aura that <br> captivates, <span class="italic-text">naturally.</span>
+            </h1>
+            <p class="subtitle">
+                Masterfully blended fragrances that enhance your<br>
+                natural elegance and leave an unforgettable trail.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#colction" class="btn-primary">DISCOVER COLLECTION <span>→</span></a>
+            </div>
+            <div class="features">
+                <div class="feature-item">
+                    <span class="icon">🌿</span>
+                    <span>Pure<br>Extracts</span>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">⏳</span>
+                    <span>Long<br>Lasting</span>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">✨</span>
+                    <span>Luxury<br>Notes</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Right -->
+        <div class="hero-image-container">
+            <div class="arch-box">
+                <img src="./Puplic/Heaedr3.jpg" alt="Product Image" class="arch-img">
+            </div>
+            <div class="promo-card">
+                <div class="promo-img">
+                    <img src="./Puplic/Heaedr.jpg" alt="Free Discovery Set">
+                </div>
+                <div class="promo-text">
+                    <p>Discount</p>
+                    <span>on orders above $200</span>
+                    <a href="#colction">SHOP NOW →</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Products Section -->
+    <div class="container mt-5 mb-5" id="colction">
+        <div class="d-flex flex-column align-items-center mb-5">
+            <h2 class="mb-4" style="font-family: var(--font-heading);">Our Collection</h2>
+            
+            <!-- Search Box -->
+            <div class="input-group" style="max-width: 500px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 30px; overflow: hidden;">
+                <span class="input-group-text bg-white border-0 text-muted ps-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </span>
+                <input type="text" class="form-control border-0 shadow-none py-3" 
+                       placeholder="Search by perfume name or brand..." 
+                       v-model="searchQuery">
+            </div>
+        </div>
+
+        <div class="row gap-4 justify-content-center">
+            <div data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true" class="card border-2 shadow" style="width: 18rem;" v-for="product in filteredProducts" :key="product.id">
+                <img :src="product.img" class="card-img-top mt-3" :alt="product.title" loading="lazy" style="aspect-ratio: 3/4; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ product.brand }}</h6>
+                    <p class="card-text" style="font-size: 0.9rem;">{{ product.category }}</p>
+                    <p class="card-text fw-bold mt-auto">{{ product.price }}$</p>
+                    <button @click="addToCart(product)" class="btn btn-dark w-100 mt-3" style="background-color: var(--text-dark);">Add to Cart</button>
+                </div>
+            </div>
+
+            <div v-if="filteredProducts.length === 0" class="text-center text-muted w-100 mt-4">
+                <p class="fs-5">No perfumes found matching "<span class="fw-bold">{{ searchQuery }}</span>"</p>
+                <button class="btn btn-outline-secondary mt-2" @click="searchQuery = ''">Clear Search</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="container mt-5 mb-5 pt-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img loading="lazy" src="./Puplic/about.jpg" alt="About Lumière" class="img-fluid rounded-4 shadow-sm" style="aspect-ratio: 4/5; object-fit: cover;">
+            </div>
+            <div class="col-md-6 px-md-5">
+                <h6 class="text-muted text-uppercase letter-spacing-2 mb-3" style="letter-spacing: 2px; font-size: 0.8rem;">Our Story</h6>
+                <h2 class="mb-4" style="font-family: var(--font-heading); color: var(--text-dark);">Where Nature Meets <span style="color: var(--primary-color); font-style: italic;">Luxury</span></h2>
+                <p class="text-muted mb-4" style="line-height: 1.8; font-size: 0.95rem;">
+                    At LUMIÈRE, we believe that true luxury lies in the purity of nature and the precision of science. Born from a passion for holistic beauty, our brand bridges the gap between clean skincare and high-end perfumery. 
+                    <br><br>
+                    Every bottle we craft is a testament to our commitment to sustainable sourcing, clinically proven formulas, and timeless elegance. We don't just create products; we craft sensory experiences designed to restore your natural glow and leave a captivating, unforgettable trail.
+                </p>
+                <a href="#" class="btn btn-outline-dark rounded-pill px-4 py-2" style="font-weight: 500;">Read Full Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients Section -->
+    <section id="ingredients" class="mt-5 mb-5 py-5" style="background-color: #fcfaf8;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 style="font-family: var(--font-heading); color: var(--text-dark);">Consciously <span style="color: var(--primary-color); font-style: italic;">Formulated</span></h2>
+                <p class="text-muted mx-auto mt-3" style="max-width: 600px;">We ethically source the finest botanicals and raw earth minerals to deliver safe, potent, and beautifully balanced formulas.</p>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+                        <div class="fs-1 mb-3">
+                            <img loading="lazy" src="./Puplic/Ingredients/safe.jpg" width="100px" height="100px" alt="">
+                        </div>
+                        <h5 class="mb-3" style="font-family: var(--font-heading);">100% Vegan Clean</h5>
+                        <p class="text-muted" style="font-size: 0.9rem;">Free from parabens, sulfates, and synthetic dyes. Just pure, skin-loving nutrients and natural aromatic oils.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+                        <div class="fs-1 mb-3">
+                            <img loading="lazy" src="./Puplic/Ingredients/clinc.jpg" width="100px" height="100px" alt="">
+                        </div>
+                        <h5 class="mb-3" style="font-family: var(--font-heading);">Clinically Proven</h5>
+                        <p class="text-muted" style="font-size: 0.9rem;">Developed alongside expert dermatologists and master perfumers to ensure the highest safety and efficacy standards.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+                        <div class="fs-1 mb-3">
+                            <img loading="lazy" src="./Puplic/Ingredients/oud.jpg" width="100px" height="100px" alt="">
+                        </div>
+                        <h5 class="mb-3" style="font-family: var(--font-heading);">Raw Earth Elements</h5>
+                        <p class="text-muted" style="font-size: 0.9rem;">Infused with the essence of nature—from deep volcanic minerals to fresh citrus and rich cedarwood extracts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journal Section -->
+    <section id="journal" class="container mt-5 mb-5 pt-5 pb-5">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h6 class="text-muted text-uppercase letter-spacing-2 mb-2" style="letter-spacing: 2px; font-size: 0.8rem;">The Journal</h6>
+                <h2 style="font-family: var(--font-heading); color: var(--text-dark);">Latest <span style="color: var(--primary-color); font-style: italic;">Insights</span></h2>
+            </div>
+            <a href="#" class="text-dark fw-bold text-decoration-none border-bottom border-dark pb-1">View All Articles</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 h-100">
+                    <div style="height: 250px; background-color: #e9ecef; border-radius: 12px; overflow: hidden;" class="mb-3">
+                        <img loading="lazy" src="./Puplic/journal/Lifestyle.jpg" alt="Journal" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <p class="text-muted mb-2" style="font-size: 0.8rem;">FRAGRANCE • 5 MIN READ</p>
+                    <h5 class="mb-2" style="font-family: var(--font-heading);">How to Find Your Signature Scent</h5>
+                    <p class="text-muted" style="font-size: 0.9rem;">A guide to navigating fragrance families, from fresh aquatics to deep, woody orientals.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 h-100">
+                    <div style="height: 250px; background-color: #e9ecef; border-radius: 12px; overflow: hidden;" class="mb-3">
+                        <img loading="lazy" src="./Puplic/journal/olivera.jpg" alt="Journal" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <p class="text-muted mb-2" style="font-size: 0.8rem;">SKINCARE • 3 MIN READ</p>
+                    <h5 class="mb-2" style="font-family: var(--font-heading);">The Philosophy of Clean Beauty</h5>
+                    <p class="text-muted" style="font-size: 0.9rem;">Why opting for natural, non-toxic ingredients is the best investment you can make for your skin's longevity.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 h-100">
+                    <div style="height: 250px; background-color: #e9ecef; border-radius: 12px; overflow: hidden;" class="mb-3">
+                        <img loading="lazy" src="./Puplic/journal/oil.jpg" alt="Journal" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <p class="text-muted mb-2" style="font-size: 0.8rem;">BEHIND THE SCENES • 4 MIN READ</p>
+                    <h5 class="mb-2" style="font-family: var(--font-heading);">The Art of Extraction</h5>
+                    <p class="text-muted" style="font-size: 0.9rem;">Take a look inside our process of turning raw flowers and earthy woods into drops of liquid magic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div>
+
+    <!-- Cart  -->
+    <div id="cart" v-show="cart">
+        <div v-show="cartItems.length==0">
+            <h1 class="text-center my-5" style="color: red;">Your Cart Is Empty</h1>
+        </div>
+        <div v-show="cartItems.length>0">
+            <div class="row justify-content-around">
+                <div class="card border-0 shadow-sm" style="width: 18rem;" v-for="product in cartItems" :key="product.id">
+                    <img :src="product.img" class="card-img-top" :alt="product.title" style="aspect-ratio: 3/4; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ product.brand }}</h6>
+                        <p class="card-text" style="font-size: 0.9rem;">{{ product.category }}</p>
+                        <p class="card-text fw-bold mt-auto">{{ product.price }}$</p>
+                    </div>
+                    <button @click="deleteItem(product)">DELETE</button>
+                </div>
+            </div>
+            <table class="table mx-5 my-3">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">quantity</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in cartItems" :key="product.id">
+                  <td>{{product.title}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td>{{product.price*product.quantity}}$</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><b>Total Price</b></td>
+                    <td v-html="Discount"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="pt-5 pb-4 mt-auto" style="background-color: var(--text-dark); color: #F8F4EE;">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                
+                <!-- Brand Info -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="logo align-items-start mb-3" style="color: #F8F4EE;">
+                        LUMIÈRE <span style="color: var(--primary-color);">PARFUMS</span>
+                    </div>
+                    <p class="text-white-50" style="font-size: 0.9rem; line-height: 1.7;">
+                        Crafting exceptional, nature-inspired fragrances and luxury scents that define your unique aura and elevate your daily experience.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="text-uppercase mb-3 fw-bold" style="letter-spacing: 1.5px; font-size: 0.85rem; color: var(--primary-color);">Quick Links</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2" style="font-size: 0.9rem;">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Shop All</a></li>
+                        <li><a href="#colction" class="text-white-50 text-decoration-none">Collections</a></li>
+                        <li><a href="#about" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li><a href="#journal" class="text-white-50 text-decoration-none">Journal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Care -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="text-uppercase mb-3 fw-bold" style="letter-spacing: 1.5px; font-size: 0.85rem; color: var(--primary-color);">Customer Care</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2" style="font-size: 0.9rem;">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">FAQ</a></li>
+                        <li><a href="#contact" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="text-uppercase mb-3 fw-bold" style="letter-spacing: 1.5px; font-size: 0.85rem; color: var(--primary-color);">Newsletter</h6>
+                    <p class="text-white-50 mb-3" style="font-size: 0.85rem;">Subscribe to receive updates, access to exclusive deals, and luxury releases.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control  text-black border-white" placeholder="Enter your email" style="font-size: 0.85rem;">
+                        <button class="btn text-white px-3" type="button" style="background-color: var(--primary-color); font-size: 0.85rem; font-weight: 500;">Subscribe</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Divider line -->
+            <hr class="border-secondary opacity-25 my-4">
+
+            <!-- Bottom Copyright & Social Icons -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-white-50" style="font-size: 0.8rem;">
+                <p class="mb-2 mb-md-0">&copy; 2026 LUMIÈRE Parfums. All rights reserved.</p>
+                <div id="contact" class="d-flex gap-3 fs-6">
+                    <a href="https://www.instagram.com/3mvd_a7med?igsh=emE2aGplYzVya2lp" target="_blank" class="text-white-50 text-decoration-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/share/1935gubMTj/" target="_blank" class="text-white-50 text-decoration-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/qr/ZWNCZ2IWTJW3E1" target="_blank" class="text-white-50 text-decoration-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
